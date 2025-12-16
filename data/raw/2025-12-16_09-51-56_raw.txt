@@ -1,0 +1,2 @@
+<p>Space and time aren&rsquo;t just woven into the background fabric of the universe. To theoretical computer scientists, time and space (also known as memory) are the two fundamental resources of computation. Algorithms require a roughly proportional amount of space to runtime, and researchers long assumed there was no way to achieve anything better. In a stunner of a result &mdash; &ldquo;the best thing in 50 years,&rdquo;&#8230;</p>
+<p><a href=" rel="nofollow">Source</a></p>
