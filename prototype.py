@@ -4,9 +4,10 @@ from transformers import pipeline
 import asyncio
 import edge_tts
 from datetime import datetime
+from datetime import date
 import re
 import random
-
+import json
 
 def clean_text(text):
     text = re.sub(r"http\S+", "", text)
@@ -23,7 +24,7 @@ def clean_text(text):
 
     return text.strip()
 
-
+# -------------------------------
 
 DATA_DIR = Path("data")
 RAW_DIR = DATA_DIR / "raw"
@@ -33,6 +34,28 @@ SUMMARY_DIR = DATA_DIR / "summaries"
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 SUMMARY_DIR.mkdir(parents=True, exist_ok=True)
+
+EPISODES_FILE = DATA_DIR / "episodes.json"
+
+episodes = []
+
+if EPISODES_FILE.exists():
+    text = EPISODES_FILE.read_text().strip()
+    try:
+        episodes = json.loads(text)
+    except json.JSONDecodeError:
+        print("Warning: episodes.json is invalid. Starting with empty history.")
+        episodes = []
+
+used_urls = {entry["article_url"] for entry in episodes}
+
+today_str = date.today().isoformat()
+today_episode = None
+
+for entry in episodes:
+    if entry["timestamp"].startswith(today_str):
+        today_episode = entry
+        break
 
 # -------------------------------
 
@@ -62,6 +85,12 @@ RSS_FEEDS = {
     ]
 }
 
+if today_episode:
+    print("Today's episode already exists.")
+    print("Title:", today_episode["title"])
+    print("Audio:", today_episode["audio_file"])
+    exit()
+
 topic = random.choice(list(RSS_FEEDS.keys()))
 feed_url = random.choice(RSS_FEEDS[topic])
 
@@ -75,8 +104,13 @@ print(f"Feed: {feed_url}")
 
 valid_entries = [
     entry for entry in feed.entries
-    if entry.get("summary") or entry.get("content")
+    if entry.get("summary") 
+    and entry.get("link") 
+    and entry.link not in used_urls
 ]
+
+if not valid_entries:
+    raise Exception("No new usable entries found (all used or invalid).")
 
 entry = random.choice(valid_entries)
 title = entry.title
@@ -126,3 +160,23 @@ async def tts():
 print("Generating audio...")
 asyncio.run(tts())
 print(f"Saved audio to {OUTPUT_AUDIO}")
+
+# -------------------------------
+
+episode_metadata = {
+    "timestamp": timestamp,
+    "title": title,
+    "source": feed_url,
+    "article_url": entry.link,
+    "topic": topic,
+    "summary_file": str(summary_file),
+    "audio_file": OUTPUT_AUDIO
+}
+
+episodes.append(episode_metadata)
+
+EPISODES_FILE.write_text(
+    json.dumps(episodes, indent=2),
+    encoding="utf-8"
+)
+
