@@ -70,5 +70,14 @@
     "topic": "ideas",
     "summary_file": "data/summaries/2025-12-22_ideas_voices-from-the-abyss_summary.txt",
     "audio_file": "data/audio/2025-12-22_ideas_voices-from-the-abyss_lecture.mp3"
+  },
+  {
+    "timestamp": "2025-12-22",
+    "title": "Why are moths drawn to flames?",
+    "source": "https://aeon.co/feed",
+    "article_url": "https://aeon.co/videos/do-we-finally-understand-why-winged-insects-seem-drawn-to-light?utm_source=rss-feed",
+    "topic": "ideas",
+    "summary_file": "data/summaries/2025-12-22_ideas_why-are-moths-drawn-to-flames_summary.txt",
+    "audio_file": "data/audio/2025-12-22_ideas_why-are-moths-drawn-to-flames_lecture.mp3"
   }
 ]

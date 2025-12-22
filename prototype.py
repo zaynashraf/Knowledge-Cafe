@@ -1,6 +1,4 @@
 from pathlib import Path
-import asyncio
-import edge_tts
 from datetime import datetime
 from datetime import date
 import random
@@ -8,6 +6,7 @@ from src.utils import clean_text, slugify
 from src.memory import load_episodes, save_episodes
 from src.feeds import select_feed
 from src.summarize import summarize
+from src.tts import speak
 
 # -------------------------------
 
@@ -127,12 +126,8 @@ print(f"Saved text to {summary_file}")
 
 OUTPUT_AUDIO = str(AUDIO_DIR / f"{base_name}_lecture.mp3")
 
-async def tts():
-    communicate = edge_tts.Communicate(summary_text, voice="en-US-JennyNeural")
-    await communicate.save(OUTPUT_AUDIO)
-
 print("Generating audio...")
-asyncio.run(tts())
+speak(summary_text, OUTPUT_AUDIO)
 print(f"Saved audio to {OUTPUT_AUDIO}")
 
 # -------------------------------
