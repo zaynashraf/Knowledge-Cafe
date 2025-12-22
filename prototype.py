@@ -1,5 +1,4 @@
 from pathlib import Path
-import feedparser
 from transformers import pipeline
 import asyncio
 import edge_tts
@@ -8,6 +7,7 @@ from datetime import date
 import random
 from src.utils import clean_text, slugify
 from src.memory import load_episodes, save_episodes
+from src.feeds import select_feed
 
 # -------------------------------
 
@@ -80,14 +80,7 @@ RSS_FEEDS = {
 #     print("Audio:", today_episode["audio_file"])
 #     exit()
 
-weighted_topics = []
-for topic, info in RSS_FEEDS.items():
-    weighted_topics.extend([topic] * info["weight"])
-
-topic = random.choice(weighted_topics)
-feed_url = random.choice(RSS_FEEDS[topic]["feeds"])
-
-feed = feedparser.parse(feed_url)
+topic, feed_url, feed = select_feed(RSS_FEEDS)
 
 if not feed.entries:
     raise Exception("No feed entries found. Check RSS URL.")

@@ -43,5 +43,14 @@
     "topic": "science",
     "summary_file": "data/summaries/2025-12-22_science_are-we-living-in-a-parallel-universe-the-strange-physics-of-_summary.txt",
     "audio_file": "data/audio/2025-12-22_science_are-we-living-in-a-parallel-universe-the-strange-physics-of-_lecture.mp3"
+  },
+  {
+    "timestamp": "2025-12-22",
+    "title": "Science\u2019s role in my <i>Great British Sewing Bee</i> success",
+    "source": "https://feeds.nature.com/nature/rss/current",
+    "article_url": "https://www.nature.com/articles/d41586-025-03536-0",
+    "topic": "science",
+    "summary_file": "data/summaries/2025-12-22_science_science-s-role-in-my-i-great-british-sewing-bee-i-success_summary.txt",
+    "audio_file": "data/audio/2025-12-22_science_science-s-role-in-my-i-great-british-sewing-bee-i-success_lecture.mp3"
   }
 ]
