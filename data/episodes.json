@@ -52,5 +52,23 @@
     "topic": "science",
     "summary_file": "data/summaries/2025-12-22_science_science-s-role-in-my-i-great-british-sewing-bee-i-success_summary.txt",
     "audio_file": "data/audio/2025-12-22_science_science-s-role-in-my-i-great-british-sewing-bee-i-success_lecture.mp3"
+  },
+  {
+    "timestamp": "2025-12-22",
+    "title": "<b>How 2025 showcased the power and resilience of science</b>",
+    "source": "https://feeds.nature.com/nature/rss/current",
+    "article_url": "https://www.nature.com/articles/d41586-025-04049-6",
+    "topic": "science",
+    "summary_file": "data/summaries/2025-12-22_science_b-how-2025-showcased-the-power-and-resilience-of-science-b_summary.txt",
+    "audio_file": "data/audio/2025-12-22_science_b-how-2025-showcased-the-power-and-resilience-of-science-b_lecture.mp3"
+  },
+  {
+    "timestamp": "2025-12-22",
+    "title": "Voices from the abyss",
+    "source": "https://aeon.co/feed",
+    "article_url": "https://aeon.co/videos/the-mexican-cliff-divers-who-take-dazzling-leaps-into-the-unknown?utm_source=rss-feed",
+    "topic": "ideas",
+    "summary_file": "data/summaries/2025-12-22_ideas_voices-from-the-abyss_summary.txt",
+    "audio_file": "data/audio/2025-12-22_ideas_voices-from-the-abyss_lecture.mp3"
   }
 ]

@@ -1,5 +1,4 @@
 from pathlib import Path
-from transformers import pipeline
 import asyncio
 import edge_tts
 from datetime import datetime
@@ -8,6 +7,7 @@ import random
 from src.utils import clean_text, slugify
 from src.memory import load_episodes, save_episodes
 from src.feeds import select_feed
+from src.summarize import summarize
 
 # -------------------------------
 
@@ -33,15 +33,6 @@ for entry in episodes:
     if entry["timestamp"].startswith(today_str):
         today_episode = entry
         break
-
-# -------------------------------
-
-print("Loading summarizer model (BART-large-CNN)...")
-
-summarizer = pipeline(
-    "summarization",
-    model="facebook/bart-large-cnn"
-)
 
 # -------------------------------
 
@@ -124,12 +115,7 @@ print(f"Saved raw article to {raw_file}")
 
 print("Summarizing article...")
 
-summary_text = summarizer(
-    content,
-    max_length=300,
-    min_length=120,
-    do_sample=False
-)[0]["summary_text"]
+summary_text = summarize(content)
 
 print("\nSummary created!\n")
 
