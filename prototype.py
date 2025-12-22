@@ -8,21 +8,7 @@ from datetime import date
 import re
 import random
 import json
-
-def clean_text(text):
-    text = re.sub(r"http\S+", "", text)
-
-    boilerplate_phrases = [
-        "Read more",
-        "Continue reading",
-        "Visit the full article",
-        "Click here"
-    ]
-
-    for phrase in boilerplate_phrases:
-        text = text.replace(phrase, "")
-
-    return text.strip()
+from src.utils import clean_text, slugify
 
 # -------------------------------
 
@@ -69,30 +55,46 @@ summarizer = pipeline(
 # -------------------------------
 
 RSS_FEEDS = {
-    "science": [
-        "https://www.quantamagazine.org/feed",
-        "https://feeds.nature.com/nature/rss/current"
-        "https://www.sciencedaily.com/rss/all.xml"
-    ],
-    "philosophy": [
-        "https://aeon.co/feed"
-    ],
-    "history": [
-        "https://feeds.bbci.co.uk/history/rss.xml"
-    ],
-    "psychology": [
-        "https://www.sciencedaily.com/rss/mind_brain.xml"
-    ]
+    "science": {
+        "weight": 4,
+        "feeds": [
+            "https://www.quantamagazine.org/feed",
+            "https://feeds.nature.com/nature/rss/current",
+            "https://www.sciencedaily.com/rss/all.xml"
+        ]
+    },
+    "ideas": {
+        "weight": 1,
+        "feeds": [
+            "https://aeon.co/feed"
+        ]
+    },
+    "history": {
+        "weight": 1,
+        "feeds": [
+            "https://feeds.bbci.co.uk/history/rss.xml"
+        ]
+    },
+    "psychology": {
+        "weight": 2,
+        "feeds": [
+            "https://www.sciencedaily.com/rss/mind_brain.xml"
+        ]
+    }
 }
 
-if today_episode:
-    print("Today's episode already exists.")
-    print("Title:", today_episode["title"])
-    print("Audio:", today_episode["audio_file"])
-    exit()
+# if today_episode:
+#     print("Today's episode already exists.")
+#     print("Title:", today_episode["title"])
+#     print("Audio:", today_episode["audio_file"])
+#     exit()
 
-topic = random.choice(list(RSS_FEEDS.keys()))
-feed_url = random.choice(RSS_FEEDS[topic])
+weighted_topics = []
+for topic, info in RSS_FEEDS.items():
+    weighted_topics.extend([topic] * info["weight"])
+
+topic = random.choice(weighted_topics)
+feed_url = random.choice(RSS_FEEDS[topic]["feeds"])
 
 feed = feedparser.parse(feed_url)
 
@@ -126,8 +128,11 @@ print(f"\nUsing article: {title}\n")
 
 # -------------------------------
 
-timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-raw_file = RAW_DIR / f"{timestamp}_raw.txt"
+timestamp = datetime.now().strftime("%Y-%m-%d")
+title_slug = slugify(title)
+base_name = f"{timestamp}_{topic}_{title_slug}"
+
+raw_file = RAW_DIR / f"{base_name}_raw.txt"
 raw_file.write_text(content, encoding="utf-8")
 print(f"Saved raw article to {raw_file}")
 
@@ -144,14 +149,13 @@ summary_text = summarizer(
 
 print("\nSummary created!\n")
 
-summary_file = SUMMARY_DIR / f"{timestamp}_summary.txt"
+summary_file = SUMMARY_DIR / f"{base_name}_summary.txt"
 summary_file.write_text(summary_text, encoding="utf-8")
 print(f"Saved text to {summary_file}")
 
-
 # -------------------------------
 
-OUTPUT_AUDIO = str(AUDIO_DIR / f"{timestamp}_lecture.mp3")
+OUTPUT_AUDIO = str(AUDIO_DIR / f"{base_name}_lecture.mp3")
 
 async def tts():
     communicate = edge_tts.Communicate(summary_text, voice="en-US-JennyNeural")

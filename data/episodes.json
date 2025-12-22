@@ -7,5 +7,32 @@
     "topic": "psychology",
     "summary_file": "data/summaries/2025-12-17_10-23-00_summary.txt",
     "audio_file": "data/audio/2025-12-17_10-23-00_lecture.mp3"
+  },
+  {
+    "timestamp": "2025-12-18_09-45-11",
+    "title": "The Year in Physics",
+    "source": "https://www.quantamagazine.org/feed",
+    "article_url": "https://www.quantamagazine.org/the-year-in-physics-20251217/",
+    "topic": "science",
+    "summary_file": "data/summaries/2025-12-18_09-45-11_summary.txt",
+    "audio_file": "data/audio/2025-12-18_09-45-11_lecture.mp3"
+  },
+  {
+    "timestamp": "2025-12-18",
+    "title": "These simple habits could make your brain 8 years younger, study finds",
+    "source": "https://www.sciencedaily.com/rss/all.xml",
+    "article_url": "https://www.sciencedaily.com/releases/2025/12/251214100933.htm",
+    "topic": "science",
+    "summary_file": "data/summaries/2025-12-18_science_these-simple-habits-could-make-your-brain-8-years-younger-st_summary.txt",
+    "audio_file": "data/audio/2025-12-18_science_these-simple-habits-could-make-your-brain-8-years-younger-st_lecture.mp3"
+  },
+  {
+    "timestamp": "2025-12-22",
+    "title": "The WW1 film over 20 million people went to see",
+    "source": "https://feeds.bbci.co.uk/history/rss.xml",
+    "article_url": "http://www.bbc.co.uk/news/magazine-29724852#sa-ns_mchannel=rss&ns_source=PublicRSS20-sa",
+    "topic": "history",
+    "summary_file": "data/summaries/2025-12-22_history_the-ww1-film-over-20-million-people-went-to-see_summary.txt",
+    "audio_file": "data/audio/2025-12-22_history_the-ww1-film-over-20-million-people-went-to-see_lecture.mp3"
   }
 ]
