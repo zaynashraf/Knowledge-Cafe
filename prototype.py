@@ -139,6 +139,7 @@ episode_metadata = {
     "article_url": entry.link,
     "topic": topic,
     "summary_file": str(summary_file),
+    "raw_file": str(raw_file),
     "audio_file": OUTPUT_AUDIO
 }
 
