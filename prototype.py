@@ -5,10 +5,9 @@ import asyncio
 import edge_tts
 from datetime import datetime
 from datetime import date
-import re
 import random
-import json
 from src.utils import clean_text, slugify
+from src.memory import load_episodes, save_episodes
 
 # -------------------------------
 
@@ -23,15 +22,7 @@ SUMMARY_DIR.mkdir(parents=True, exist_ok=True)
 
 EPISODES_FILE = DATA_DIR / "episodes.json"
 
-episodes = []
-
-if EPISODES_FILE.exists():
-    text = EPISODES_FILE.read_text().strip()
-    try:
-        episodes = json.loads(text)
-    except json.JSONDecodeError:
-        print("Warning: episodes.json is invalid. Starting with empty history.")
-        episodes = []
+episodes = load_episodes(EPISODES_FILE)
 
 used_urls = {entry["article_url"] for entry in episodes}
 
@@ -177,10 +168,5 @@ episode_metadata = {
     "audio_file": OUTPUT_AUDIO
 }
 
-episodes.append(episode_metadata)
-
-EPISODES_FILE.write_text(
-    json.dumps(episodes, indent=2),
-    encoding="utf-8"
-)
+save_episodes(EPISODES_FILE, episodes, episode_metadata)
 

@@ -34,5 +34,14 @@
     "topic": "history",
     "summary_file": "data/summaries/2025-12-22_history_the-ww1-film-over-20-million-people-went-to-see_summary.txt",
     "audio_file": "data/audio/2025-12-22_history_the-ww1-film-over-20-million-people-went-to-see_lecture.mp3"
+  },
+  {
+    "timestamp": "2025-12-22",
+    "title": "Are we living in a parallel universe? The strange physics of <i>Stranger Things</i>",
+    "source": "https://feeds.nature.com/nature/rss/current",
+    "article_url": "https://www.nature.com/articles/d41586-025-04088-z",
+    "topic": "science",
+    "summary_file": "data/summaries/2025-12-22_science_are-we-living-in-a-parallel-universe-the-strange-physics-of-_summary.txt",
+    "audio_file": "data/audio/2025-12-22_science_are-we-living-in-a-parallel-universe-the-strange-physics-of-_lecture.mp3"
   }
 ]
